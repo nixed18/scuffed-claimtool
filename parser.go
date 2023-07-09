@@ -83,8 +83,17 @@ func scrape(data string) ([]*Tx, int64) {
 		if err != nil {fmt.Println("ERRORS:", errs); return []*Tx{}, -1}
 		this_tx.TXID = txid
 
+		/*
 		// Find the fee
 		data, err = strip_to(`<span class="badge bg-light text-dark border me-2">`, data)
+		errs = append(errs, err)
+		if err != nil {fmt.Println("ERRORS:", errs); return []*Tx{}, -1}
+		*/
+		data, err = strip_to(`<span class="ms-2">`, data)
+		errs = append(errs, err)
+		if err != nil {fmt.Println("ERRORS:", errs); return []*Tx{}, -1}
+
+		data, err = strip_to(`(`, data)
 		errs = append(errs, err)
 		if err != nil {fmt.Println("ERRORS:", errs); return []*Tx{}, -1}
 
